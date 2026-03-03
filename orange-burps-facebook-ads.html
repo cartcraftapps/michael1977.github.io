@@ -1,0 +1,1029 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Orange Burps — Facebook Ad Execution Pack</title>
+  <style>
+    * { margin: 0; padding: 0; box-sizing: border-box; }
+    body { font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif; background: #f0f2f5; color: #1c1e21; line-height: 1.5; }
+
+    .header { background: linear-gradient(135deg, #ff8c00, #ff6600); color: white; padding: 40px 20px; text-align: center; }
+    .header h1 { font-size: 2.2rem; margin-bottom: 8px; }
+    .header p { font-size: 1.1rem; opacity: 0.9; }
+
+    .container { max-width: 900px; margin: 0 auto; padding: 20px; }
+
+    .specs-bar { background: #fff; border-radius: 12px; padding: 24px; margin: 24px 0; box-shadow: 0 1px 3px rgba(0,0,0,0.1); }
+    .specs-bar h2 { font-size: 1.1rem; margin-bottom: 12px; color: #ff6600; text-transform: uppercase; letter-spacing: 1px; }
+    .specs-grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(200px, 1fr)); gap: 12px; }
+    .spec-item { background: #f7f8fa; border-radius: 8px; padding: 12px; }
+    .spec-item strong { display: block; font-size: 0.8rem; color: #65676b; text-transform: uppercase; letter-spacing: 0.5px; }
+    .spec-item span { font-size: 0.95rem; }
+
+    .ad-section { background: #fff; border-radius: 12px; margin: 24px 0; overflow: hidden; box-shadow: 0 1px 3px rgba(0,0,0,0.1); }
+    .ad-section-header { padding: 24px 24px 0; }
+    .ad-section-header h2 { font-size: 1.5rem; margin-bottom: 4px; }
+    .ad-section-header .concept-tag { display: inline-block; background: #ff6600; color: white; font-size: 0.75rem; font-weight: 700; padding: 4px 10px; border-radius: 20px; text-transform: uppercase; letter-spacing: 1px; margin-bottom: 8px; }
+    .ad-section-header p.rationale { color: #65676b; font-size: 0.95rem; margin-bottom: 16px; border-left: 3px solid #ff6600; padding-left: 12px; }
+
+    .ad-variant { border-top: 1px solid #e4e6eb; padding: 24px; }
+    .ad-variant h3 { font-size: 1rem; color: #ff6600; margin-bottom: 16px; text-transform: uppercase; letter-spacing: 0.5px; }
+
+    .fb-preview { background: #fff; border: 1px solid #dddfe2; border-radius: 8px; max-width: 500px; margin: 0 auto; font-family: Helvetica, Arial, sans-serif; }
+    .fb-preview-header { display: flex; align-items: center; padding: 12px 16px; gap: 10px; }
+    .fb-avatar { width: 40px; height: 40px; background: linear-gradient(135deg, #ff8c00, #ff6600); border-radius: 50%; display: flex; align-items: center; justify-content: center; color: white; font-weight: 700; font-size: 14px; }
+    .fb-meta { flex: 1; }
+    .fb-meta strong { display: block; font-size: 13px; }
+    .fb-meta span { font-size: 12px; color: #65676b; }
+    .fb-primary-text { padding: 0 16px 12px; font-size: 15px; line-height: 1.4; white-space: pre-line; }
+    .fb-image { width: 100%; aspect-ratio: 1 / 1; display: flex; align-items: center; justify-content: center; padding: 32px; text-align: center; }
+    .fb-cta-bar { display: flex; justify-content: space-between; align-items: center; padding: 12px 16px; border-top: 1px solid #dddfe2; background: #f7f8fa; }
+    .fb-cta-bar .fb-headline { font-size: 14px; }
+    .fb-cta-bar .fb-headline strong { display: block; font-size: 15px; }
+    .fb-cta-bar .fb-headline span { font-size: 13px; color: #65676b; }
+    .fb-cta-btn { background: #ff6600; color: white; border: none; padding: 8px 20px; border-radius: 6px; font-weight: 700; font-size: 14px; cursor: pointer; }
+
+    .copy-block { background: #f7f8fa; border-radius: 8px; padding: 16px; margin: 12px 0; position: relative; }
+    .copy-block label { display: block; font-size: 0.75rem; font-weight: 700; color: #65676b; text-transform: uppercase; letter-spacing: 0.5px; margin-bottom: 6px; }
+    .copy-block pre { white-space: pre-wrap; font-family: inherit; font-size: 0.95rem; line-height: 1.5; }
+    .copy-block .copy-btn { position: absolute; top: 12px; right: 12px; background: #ff6600; color: white; border: none; padding: 4px 12px; border-radius: 4px; font-size: 0.75rem; cursor: pointer; font-weight: 600; }
+    .copy-block .copy-btn:hover { background: #e55b00; }
+
+    .creative-direction { background: #fff8f0; border: 1px solid #ffe0b2; border-radius: 8px; padding: 16px; margin: 16px 0; }
+    .creative-direction h4 { font-size: 0.85rem; color: #ff6600; text-transform: uppercase; letter-spacing: 0.5px; margin-bottom: 8px; }
+    .creative-direction ul { padding-left: 20px; }
+    .creative-direction li { font-size: 0.9rem; margin-bottom: 4px; }
+
+    .testing-notes { background: #f0f7ff; border: 1px solid #b3d4fc; border-radius: 8px; padding: 16px; margin: 16px 0; }
+    .testing-notes h4 { font-size: 0.85rem; color: #1877f2; text-transform: uppercase; letter-spacing: 0.5px; margin-bottom: 8px; }
+    .testing-notes ul { padding-left: 20px; }
+    .testing-notes li { font-size: 0.9rem; margin-bottom: 4px; }
+
+    .review-wall-placeholder { background: #fff3e0; border: 2px dashed #ff6600; border-radius: 12px; padding: 32px; text-align: center; margin: 16px 0; }
+    .review-wall-placeholder h3 { color: #ff6600; margin-bottom: 8px; }
+
+    .audience-section { background: #fff; border-radius: 12px; padding: 24px; margin: 24px 0; box-shadow: 0 1px 3px rgba(0,0,0,0.1); }
+    .audience-section h2 { font-size: 1.3rem; margin-bottom: 16px; }
+    .audience-card { background: #f7f8fa; border-radius: 8px; padding: 16px; margin: 12px 0; }
+    .audience-card h4 { margin-bottom: 8px; }
+    .audience-card ul { padding-left: 20px; }
+    .audience-card li { font-size: 0.9rem; margin-bottom: 2px; }
+
+    @media (max-width: 600px) {
+      .header h1 { font-size: 1.5rem; }
+      .fb-preview { border-radius: 0; }
+    }
+  </style>
+</head>
+<body>
+
+<div class="header">
+  <h1>Orange Burps — Facebook Ad Pack</h1>
+  <p>3 Concepts, Ready-to-Run Copy &amp; Creative Direction</p>
+</div>
+
+<div class="container">
+
+  <!-- ==================== SPECS ==================== -->
+  <div class="specs-bar">
+    <h2>Facebook Ads Manager Setup</h2>
+    <div class="specs-grid">
+      <div class="spec-item"><strong>Campaign Objective</strong><span>Conversions (Purchase)</span></div>
+      <div class="spec-item"><strong>Ad Format</strong><span>Single Image or Carousel</span></div>
+      <div class="spec-item"><strong>Image Size</strong><span>1080 x 1080px (1:1)</span></div>
+      <div class="spec-item"><strong>Primary Text</strong><span>125 chars visible (up to 500)</span></div>
+      <div class="spec-item"><strong>Headline</strong><span>40 chars max</span></div>
+      <div class="spec-item"><strong>Description</strong><span>30 chars max</span></div>
+      <div class="spec-item"><strong>CTA Button</strong><span>Shop Now</span></div>
+      <div class="spec-item"><strong>Destination</strong><span>orangeburps.com/products/orange-burps</span></div>
+    </div>
+  </div>
+
+  <!-- ==================== CONCEPT 3 ==================== -->
+  <div class="ad-section">
+    <div class="ad-section-header">
+      <span class="concept-tag">Concept 3</span>
+      <h2>The Name Objection</h2>
+      <p class="rationale"><strong>Why it works:</strong> Calling out the weird name is a pattern interrupt — people stop scrolling because it feels honest, not salesy. It flips the biggest objection (the name) into the strongest selling point (authenticity). UGC-style formatting makes it blend into the feed.</p>
+    </div>
+
+    <!-- Variant A -->
+    <div class="ad-variant">
+      <h3>Variant A — "Almost Didn't Buy It"</h3>
+
+      <div class="fb-preview">
+        <div class="fb-preview-header">
+          <div class="fb-avatar">OB</div>
+          <div class="fb-meta">
+            <strong>Orange Burps</strong>
+            <span>Sponsored</span>
+          </div>
+        </div>
+        <div class="fb-primary-text">"I still can't believe this silly named over the counter natural pill did it!"
+
+That's a real review from Debbie. She gets side effects from prescription drugs, so she was skeptical. She figured she'd give Orange Burps a try anyway.
+
+Day one, two capsules. Day two, one capsule. No more heartburn.
+
+Orange Burps is a d-limonene supplement made from orange peel extract. 100% natural.
+
+The name is silly. The reviews speak for themselves.
+
+$19.99. 30-day money-back guarantee. Results may vary.</div>
+        <div class="fb-image" style="background: linear-gradient(135deg, #1c1e21, #2d2d2d); color: white; font-family: Georgia, serif;">
+          <div>
+            <div style="font-size: 42px; margin-bottom: 16px;">&#x2B50;&#x2B50;&#x2B50;&#x2B50;&#x2B50;</div>
+            <div style="font-size: 22px; line-height: 1.3; max-width: 360px; margin: 0 auto;">"I still can't believe<br>this silly named pill<br>did it!"</div>
+            <div style="margin-top: 20px; font-size: 14px; opacity: 0.6;">— Debbie, Verified Buyer</div>
+          </div>
+        </div>
+        <div class="fb-cta-bar">
+          <div class="fb-headline">
+            <strong>Natural Heartburn Support</strong>
+            <span>orangeburps.com</span>
+          </div>
+          <button class="fb-cta-btn">Shop Now</button>
+        </div>
+      </div>
+
+      <div class="copy-block">
+        <label>Primary Text (paste into Ads Manager)</label>
+        <button class="copy-btn" onclick="copyText(this)">Copy</button>
+        <pre>"I still can't believe this silly named over the counter natural pill did it!"
+
+That's a real review from Debbie. She gets side effects from prescription drugs, so she was skeptical. She figured she'd give Orange Burps a try anyway.
+
+Day one, two capsules. Day two, one capsule. No more heartburn.
+
+Orange Burps is a d-limonene supplement made from orange peel extract. 100% natural.
+
+The name is silly. The reviews speak for themselves.
+
+$19.99. 30-day money-back guarantee. Results may vary.</pre>
+      </div>
+
+      <div class="copy-block">
+        <label>Headline</label>
+        <button class="copy-btn" onclick="copyText(this)">Copy</button>
+        <pre>Natural Heartburn Support</pre>
+      </div>
+
+      <div class="copy-block">
+        <label>Description</label>
+        <button class="copy-btn" onclick="copyText(this)">Copy</button>
+        <pre>Natural. $19.99. Guaranteed.</pre>
+      </div>
+    </div>
+
+    <!-- Variant B -->
+    <div class="ad-variant">
+      <h3>Variant B — "Worst Name, Best Product"</h3>
+
+      <div class="fb-preview">
+        <div class="fb-preview-header">
+          <div class="fb-avatar">OB</div>
+          <div class="fb-meta">
+            <strong>Orange Burps</strong>
+            <span>Sponsored</span>
+          </div>
+        </div>
+        <div class="fb-primary-text">We know what you're thinking. "Orange Burps? Really?"
+
+Yeah. We get it. The name is weird. We did that on purpose.
+
+Because we're not your everyday antacid. We don't block your stomach acid. We don't make you take pills forever. And we don't charge you $30/month.
+
+Here's what we do:
+- 100% natural orange peel extract (d-limonene)
+- A simple 20-day protocol
+- 1,200+ five-star reviews from real customers
+- $19.99 per bottle
+- 30-day money-back guarantee
+
+Worst name in supplements. 1,200+ five-star reviews.
+
+Even if it does make you burp orange. Results may vary.</div>
+        <div class="fb-image" style="background: #ff6600; color: white;">
+          <div>
+            <div style="font-size: 18px; text-transform: uppercase; letter-spacing: 3px; opacity: 0.7; margin-bottom: 12px;">Worst Name in Supplements</div>
+            <div style="font-size: 32px; font-weight: 700; line-height: 1.2;">1,200+ Five-Star<br>Reviews</div>
+            <div style="margin-top: 20px; font-size: 16px; background: rgba(0,0,0,0.2); display: inline-block; padding: 8px 20px; border-radius: 30px;">$19.99 &bull; 20-Day Protocol</div>
+          </div>
+        </div>
+        <div class="fb-cta-bar">
+          <div class="fb-headline">
+            <strong>A Natural Alternative</strong>
+            <span>orangeburps.com</span>
+          </div>
+          <button class="fb-cta-btn">Shop Now</button>
+        </div>
+      </div>
+
+      <div class="copy-block">
+        <label>Primary Text (paste into Ads Manager)</label>
+        <button class="copy-btn" onclick="copyText(this)">Copy</button>
+        <pre>We know what you're thinking. "Orange Burps? Really?"
+
+Yeah. We get it. The name is weird. We did that on purpose.
+
+Because we're not your everyday antacid. We don't block your stomach acid. We don't make you take pills forever. And we don't charge you $30/month.
+
+Here's what we do:
+- 100% natural orange peel extract (d-limonene)
+- A simple 20-day protocol
+- 1,200+ five-star reviews from real customers
+- $19.99 per bottle
+- 30-day money-back guarantee
+
+Worst name in supplements. 1,200+ five-star reviews.
+
+Even if it does make you burp orange. Results may vary.</pre>
+      </div>
+
+      <div class="copy-block">
+        <label>Headline</label>
+        <button class="copy-btn" onclick="copyText(this)">Copy</button>
+        <pre>A Natural Alternative</pre>
+      </div>
+
+      <div class="copy-block">
+        <label>Description</label>
+        <button class="copy-btn" onclick="copyText(this)">Copy</button>
+        <pre>20-day protocol. Natural.</pre>
+      </div>
+    </div>
+
+    <div class="creative-direction">
+      <h4>Creative Direction for Concept 3</h4>
+      <ul>
+        <li><strong>Variant A image:</strong> Dark/black background, large white quote text, 5 stars in orange/gold. Minimal. Feels like a real testimonial screenshot, not a polished ad.</li>
+        <li><strong>Variant B image:</strong> Bold solid orange (#ff6600) background, clean white sans-serif type. Punchy tagline layout.</li>
+        <li><strong>Font:</strong> Use a serif font (Georgia, Playfair Display) for the quote in Variant A to feel personal. Use a bold sans-serif (Montserrat, Inter) for Variant B.</li>
+        <li><strong>Keep text under 20% of image</strong> to avoid Facebook's reduced delivery penalty.</li>
+        <li><strong>Do NOT put the product bottle in these images.</strong> The goal is pattern interrupt — it should look like a post, not an ad.</li>
+      </ul>
+    </div>
+
+    <div class="testing-notes">
+      <h4>A/B Testing Notes</h4>
+      <ul>
+        <li>Test Variant A vs B in the same ad set, equal budget split</li>
+        <li>Run for 5-7 days minimum before picking a winner</li>
+        <li>Variant A (quote-led) will likely get higher CTR</li>
+        <li>Variant B (feature-led) will likely get higher conversion rate</li>
+        <li>Kill the loser after 1,000 impressions if CPA is 2x+ the winner</li>
+      </ul>
+    </div>
+  </div>
+
+  <!-- ==================== CONCEPT 5 ==================== -->
+  <div class="ad-section">
+    <div class="ad-section-header">
+      <span class="concept-tag">Concept 5</span>
+      <h2>Before / After Nightstand</h2>
+      <p class="rationale"><strong>Why it works:</strong> Visual storytelling. No one reads ad copy first — they see the image. A cluttered vs. clean nightstand is an instantly relatable "before/after" that communicates the benefit without saying a word. The copy just seals the deal.</p>
+    </div>
+
+    <!-- Variant A -->
+    <div class="ad-variant">
+      <h3>Variant A — "20 Days"</h3>
+
+      <div class="fb-preview">
+        <div class="fb-preview-header">
+          <div class="fb-avatar">OB</div>
+          <div class="fb-meta">
+            <strong>Orange Burps</strong>
+            <span>Sponsored</span>
+          </div>
+        </div>
+        <div class="fb-primary-text">One side of the nightstand: Tums. Pepcid. Gaviscon. A glass of water "just in case." Two extra pillows to prop up.
+
+The other side: A book. A glass of water. And one bottle that lasted 20 days.
+
+Orange Burps is a natural d-limonene supplement made from orange peel extract. 1,200+ five-star reviews from real customers.
+
+$19.99. 30-day money-back guarantee. Results may vary.</div>
+        <div class="fb-image" style="background: linear-gradient(90deg, #e8d5c4 50%, #faf6f1 50%); color: #1c1e21;">
+          <div style="display: flex; width: 100%; text-align: center;">
+            <div style="flex: 1; padding: 20px;">
+              <div style="font-size: 12px; text-transform: uppercase; letter-spacing: 2px; color: #999; margin-bottom: 12px;">Before</div>
+              <div style="font-size: 36px; margin-bottom: 8px;">&#x1F48A;&#x1F48A;&#x1F48A;</div>
+              <div style="font-size: 13px; color: #666; line-height: 1.6;">Tums<br>Pepcid<br>Gaviscon<br>Water (just in case)<br>Extra pillows</div>
+            </div>
+            <div style="flex: 1; padding: 20px;">
+              <div style="font-size: 12px; text-transform: uppercase; letter-spacing: 2px; color: #999; margin-bottom: 12px;">After</div>
+              <div style="font-size: 36px; margin-bottom: 8px;">&#x1F4D6;</div>
+              <div style="font-size: 13px; color: #666; line-height: 1.6;">A good book.<br>That's it.</div>
+              <div style="margin-top: 16px; font-size: 11px; color: #ff6600; font-weight: 700;">20 DAYS WITH ORANGE BURPS</div>
+            </div>
+          </div>
+        </div>
+        <div class="fb-cta-bar">
+          <div class="fb-headline">
+            <strong>Your Nightstand Deserves Better</strong>
+            <span>orangeburps.com</span>
+          </div>
+          <button class="fb-cta-btn">Shop Now</button>
+        </div>
+      </div>
+
+      <div class="copy-block">
+        <label>Primary Text (paste into Ads Manager)</label>
+        <button class="copy-btn" onclick="copyText(this)">Copy</button>
+        <pre>One side of the nightstand: Tums. Pepcid. Gaviscon. A glass of water "just in case." Two extra pillows to prop up.
+
+The other side: A book. A glass of water. And one bottle that lasted 20 days.
+
+Orange Burps is a natural d-limonene supplement made from orange peel extract. 1,200+ five-star reviews from real customers.
+
+$19.99. 30-day money-back guarantee. Results may vary.</pre>
+      </div>
+
+      <div class="copy-block">
+        <label>Headline</label>
+        <button class="copy-btn" onclick="copyText(this)">Copy</button>
+        <pre>Your Nightstand Deserves Better</pre>
+      </div>
+
+      <div class="copy-block">
+        <label>Description</label>
+        <button class="copy-btn" onclick="copyText(this)">Copy</button>
+        <pre>20 days. Natural relief.</pre>
+      </div>
+    </div>
+
+    <!-- Variant B -->
+    <div class="ad-variant">
+      <h3>Variant B — "The Purge" (shorter, punchier)</h3>
+
+      <div class="fb-preview">
+        <div class="fb-preview-header">
+          <div class="fb-avatar">OB</div>
+          <div class="fb-meta">
+            <strong>Orange Burps</strong>
+            <span>Sponsored</span>
+          </div>
+        </div>
+        <div class="fb-primary-text">Threw out my Tums, Pepcid, and Gaviscon last month.
+
+Replaced them all with one bottle of Orange Burps. Took it for 20 days. Haven't needed anything since.
+
+D-limonene from orange peel. Natural. No acid blocking. $19.99.
+
+The name is funny. The relief is serious.</div>
+        <div class="fb-image" style="background: #fff; color: #1c1e21;">
+          <div style="text-align: center;">
+            <div style="font-size: 48px; font-weight: 900; line-height: 1.1; color: #1c1e21;">20 days.</div>
+            <div style="font-size: 48px; font-weight: 900; line-height: 1.1; color: #1c1e21;">That's all</div>
+            <div style="font-size: 48px; font-weight: 900; line-height: 1.1; color: #1c1e21;">it took.</div>
+            <div style="margin-top: 20px; font-size: 14px; color: #ff6600; font-weight: 700; letter-spacing: 2px;">ORANGE BURPS</div>
+          </div>
+        </div>
+        <div class="fb-cta-bar">
+          <div class="fb-headline">
+            <strong>A Simpler Approach</strong>
+            <span>orangeburps.com</span>
+          </div>
+          <button class="fb-cta-btn">Shop Now</button>
+        </div>
+      </div>
+
+      <div class="copy-block">
+        <label>Primary Text (paste into Ads Manager)</label>
+        <button class="copy-btn" onclick="copyText(this)">Copy</button>
+        <pre>Threw out my Tums, Pepcid, and Gaviscon last month.
+
+Replaced them all with one bottle of Orange Burps. Took it for 20 days. Haven't needed anything since.
+
+D-limonene from orange peel. Natural. No acid blocking. $19.99.
+
+The name is funny. The relief is serious.</pre>
+      </div>
+
+      <div class="copy-block">
+        <label>Headline</label>
+        <button class="copy-btn" onclick="copyText(this)">Copy</button>
+        <pre>A Simpler Approach</pre>
+      </div>
+
+      <div class="copy-block">
+        <label>Description</label>
+        <button class="copy-btn" onclick="copyText(this)">Copy</button>
+        <pre>$19.99. 30-day guarantee.</pre>
+      </div>
+    </div>
+
+    <div class="creative-direction">
+      <h4>Creative Direction for Concept 5</h4>
+      <ul>
+        <li><strong>OPTION 1 — Real photo (recommended):</strong> Actually stage and photograph two nightstands. LEFT: messy, cluttered with antacid bottles, water, pillows stacked up. RIGHT: clean, just a book and maybe a plant. Shoot in warm, natural lighting. This is the highest-performing option because it looks real.</li>
+        <li><strong>OPTION 2 — Flat lay:</strong> Overhead shot. Left half: scattered antacid bottles, pills, packaging. Right half: single Orange Burps bottle, clean surface. Divide with a thin orange line.</li>
+        <li><strong>OPTION 3 — Illustrated/graphic:</strong> Clean split-screen illustration. Works if you can't do photography. Use the HTML mockup above as a starting point for a designer.</li>
+        <li><strong>Image ratio:</strong> 1:1 (1080x1080) for feed. Also create 9:16 (1080x1920) for Stories/Reels placement.</li>
+        <li><strong>Add a small "BEFORE | AFTER" label</strong> at top of the split image in small caps.</li>
+      </ul>
+    </div>
+
+    <div class="testing-notes">
+      <h4>A/B Testing Notes</h4>
+      <ul>
+        <li>Test real photo vs. graphic version — real photos almost always win on Facebook</li>
+        <li>Test Variant A (long copy, story-driven) vs Variant B (short, punchy) in the same ad set</li>
+        <li>The "nightstand" image is the hero — if neither variant works, the image is the problem, not the copy</li>
+        <li>Consider a 15-second video version: camera pans across cluttered nightstand, hand sweeps everything into a trash can, places single Orange Burps bottle down</li>
+      </ul>
+    </div>
+  </div>
+
+  <!-- ==================== CONCEPT 1 ==================== -->
+  <div class="ad-section">
+    <div class="ad-section-header">
+      <span class="concept-tag">Concept 1</span>
+      <h2>The Review Wall</h2>
+      <p class="rationale"><strong>Why it works:</strong> Social proof is the #1 conversion driver on Facebook. Real customer words beat branded copy every time. Carousel format lets each review be its own "mini-ad" and Facebook optimizes for which card gets the most clicks.</p>
+    </div>
+
+    <!-- Variant A: Carousel -->
+    <div class="ad-variant">
+      <h3>Variant A — Carousel (6 Cards)</h3>
+
+      <div class="copy-block">
+        <label>Primary Text (paste into Ads Manager)</label>
+        <button class="copy-btn" onclick="copyText(this)">Copy</button>
+        <pre>Real reviews. Real people. Real relief.
+
+1,200+ five-star reviews from people who were skeptical at first.
+
+Orange Burps is a natural d-limonene supplement from orange peel extract. Take it for 20 days. No acid blocking. No daily pills.
+
+$19.99. 30-day money-back guarantee. Swipe to see what our customers say.</pre>
+      </div>
+
+      <div class="copy-block">
+        <label>Headline (appears under each card)</label>
+        <button class="copy-btn" onclick="copyText(this)">Copy</button>
+        <pre>See Why 1,200+ People Love It</pre>
+      </div>
+
+      <div class="copy-block">
+        <label>Description</label>
+        <button class="copy-btn" onclick="copyText(this)">Copy</button>
+        <pre>$19.99. 30-day guarantee.</pre>
+      </div>
+
+      <h4 style="margin: 24px 0 16px; color: #ff6600; font-size: 0.9rem; text-transform: uppercase; letter-spacing: 1px;">Carousel Card Copy (one per card image)</h4>
+
+      <!-- Card 1: Hook -->
+      <div style="display: grid; grid-template-columns: 1fr; gap: 12px;">
+        <div style="background: #ff6600; color: white; border-radius: 12px; padding: 24px; text-align: center;">
+          <div style="font-size: 12px; text-transform: uppercase; letter-spacing: 2px; opacity: 0.8; margin-bottom: 8px;">Card 1 — Hook</div>
+          <div style="font-size: 42px; font-weight: 900; line-height: 1.1;">1,200+</div>
+          <div style="font-size: 18px; margin-top: 4px;">Five-Star Reviews</div>
+          <div style="font-size: 28px; margin-top: 8px;">&#x2B50;&#x2B50;&#x2B50;&#x2B50;&#x2B50;</div>
+          <div style="margin-top: 12px; font-size: 14px; opacity: 0.8;">Swipe to read them &rarr;</div>
+        </div>
+
+        <!-- Card 2: Debbie -->
+        <div style="background: #1c1e21; color: white; border-radius: 12px; padding: 24px; text-align: center;">
+          <div style="font-size: 12px; text-transform: uppercase; letter-spacing: 2px; opacity: 0.5; margin-bottom: 8px;">Card 2</div>
+          <div style="font-size: 24px; margin-bottom: 12px;">&#x2B50;&#x2B50;&#x2B50;&#x2B50;&#x2B50;</div>
+          <div style="font-size: 18px; line-height: 1.4; font-family: Georgia, serif; max-width: 380px; margin: 0 auto;">"I still can't believe this silly named over the counter natural pill did it!"</div>
+          <div style="margin-top: 16px; font-size: 13px; opacity: 0.5;">— Debbie, Verified Buyer</div>
+        </div>
+
+        <!-- Card 3: Cinda -->
+        <div style="background: #1c1e21; color: white; border-radius: 12px; padding: 24px; text-align: center;">
+          <div style="font-size: 12px; text-transform: uppercase; letter-spacing: 2px; opacity: 0.5; margin-bottom: 8px;">Card 3</div>
+          <div style="font-size: 24px; margin-bottom: 12px;">&#x2B50;&#x2B50;&#x2B50;&#x2B50;&#x2B50;</div>
+          <div style="font-size: 18px; line-height: 1.4; font-family: Georgia, serif; max-width: 380px; margin: 0 auto;">"Not crazy about the name, but love love love the product! It actually works. No hype, just facts."</div>
+          <div style="margin-top: 16px; font-size: 13px; opacity: 0.5;">— Cinda, Verified Buyer</div>
+        </div>
+
+        <!-- Card 4: Peter -->
+        <div style="background: #1c1e21; color: white; border-radius: 12px; padding: 24px; text-align: center;">
+          <div style="font-size: 12px; text-transform: uppercase; letter-spacing: 2px; opacity: 0.5; margin-bottom: 8px;">Card 4</div>
+          <div style="font-size: 24px; margin-bottom: 12px;">&#x2B50;&#x2B50;&#x2B50;&#x2B50;&#x2B50;</div>
+          <div style="font-size: 18px; line-height: 1.4; font-family: Georgia, serif; max-width: 380px; margin: 0 auto;">"Five weeks without omeprazole. I sleep through the night with zero reflux."</div>
+          <div style="margin-top: 16px; font-size: 13px; opacity: 0.5;">— Peter, Verified Buyer</div>
+        </div>
+
+        <!-- Card 5: Carla -->
+        <div style="background: #1c1e21; color: white; border-radius: 12px; padding: 24px; text-align: center;">
+          <div style="font-size: 12px; text-transform: uppercase; letter-spacing: 2px; opacity: 0.5; margin-bottom: 8px;">Card 5</div>
+          <div style="font-size: 24px; margin-bottom: 12px;">&#x2B50;&#x2B50;&#x2B50;&#x2B50;&#x2B50;</div>
+          <div style="font-size: 18px; line-height: 1.4; font-family: Georgia, serif; max-width: 380px; margin: 0 auto;">"I'm a retired RN who was on proton pump inhibitors for far too long. Now I take Orange Burps only as needed."</div>
+          <div style="margin-top: 16px; font-size: 13px; opacity: 0.5;">— Carla, Retired RN &amp; Verified Buyer</div>
+        </div>
+
+        <!-- Card 6: Jan -->
+        <div style="background: #1c1e21; color: white; border-radius: 12px; padding: 24px; text-align: center;">
+          <div style="font-size: 12px; text-transform: uppercase; letter-spacing: 2px; opacity: 0.5; margin-bottom: 8px;">Card 6</div>
+          <div style="font-size: 24px; margin-bottom: 12px;">&#x2B50;&#x2B50;&#x2B50;&#x2B50;&#x2B50;</div>
+          <div style="font-size: 18px; line-height: 1.4; font-family: Georgia, serif; max-width: 380px; margin: 0 auto;">"I did Omeprazole for 20 years. Take Orange Burps for 20 days — you'll get relief. Glad it's natural."</div>
+          <div style="margin-top: 16px; font-size: 13px; opacity: 0.5;">— Jan, Verified Buyer</div>
+        </div>
+
+        <!-- Card 7: CTA -->
+        <div style="background: #ff6600; color: white; border-radius: 12px; padding: 24px; text-align: center;">
+          <div style="font-size: 12px; text-transform: uppercase; letter-spacing: 2px; opacity: 0.8; margin-bottom: 8px;">Card 7 — CTA</div>
+          <div style="font-size: 24px; font-weight: 700; line-height: 1.2;">Try It Risk-Free</div>
+          <div style="font-size: 36px; font-weight: 900; margin: 12px 0;">$19.99</div>
+          <div style="font-size: 16px; opacity: 0.9;">30-Day Money-Back Guarantee</div>
+          <div style="margin-top: 16px; background: white; color: #ff6600; display: inline-block; padding: 10px 28px; border-radius: 8px; font-weight: 700; font-size: 16px;">Shop Now</div>
+        </div>
+      </div>
+    </div>
+
+    <!-- Variant B: Single Image -->
+    <div class="ad-variant">
+      <h3>Variant B — Single Image (Quote Collage)</h3>
+
+      <div class="fb-preview">
+        <div class="fb-preview-header">
+          <div class="fb-avatar">OB</div>
+          <div class="fb-meta">
+            <strong>Orange Burps</strong>
+            <span>Sponsored</span>
+          </div>
+        </div>
+        <div class="fb-primary-text">"I still can't believe this silly named pill did it!" — Debbie
+
+"I'm a retired RN. I was on proton pump inhibitors for far too long. Now I take Orange Burps only as needed." — Carla
+
+"I did Omeprazole for 20 years. Glad this works and it's natural." — Jan
+
+1,200+ five-star reviews. $19.99. 30-day money-back guarantee.
+
+Orange Burps — a natural d-limonene supplement from orange peel extract. A simple 20-day protocol. Results may vary.</div>
+        <div class="fb-image" style="background: #1c1e21; color: white; font-family: Georgia, serif; padding: 20px;">
+          <div style="max-width: 400px; margin: 0 auto;">
+            <div style="text-align: center; margin-bottom: 16px;">
+              <div style="font-size: 28px;">&#x2B50;&#x2B50;&#x2B50;&#x2B50;&#x2B50;</div>
+              <div style="font-size: 14px; opacity: 0.5; margin-top: 4px;">1,200+ FIVE-STAR REVIEWS</div>
+            </div>
+            <div style="border-left: 3px solid #ff6600; padding-left: 12px; margin: 12px 0; font-size: 14px; line-height: 1.4;">
+              "This silly named natural pill did it!"<br><span style="opacity: 0.5; font-size: 12px;">— Debbie</span>
+            </div>
+            <div style="border-left: 3px solid #ff6600; padding-left: 12px; margin: 12px 0; font-size: 14px; line-height: 1.4;">
+              "Five weeks without omeprazole. Zero reflux."<br><span style="opacity: 0.5; font-size: 12px;">— Peter</span>
+            </div>
+            <div style="border-left: 3px solid #ff6600; padding-left: 12px; margin: 12px 0; font-size: 14px; line-height: 1.4;">
+              "I'm a retired RN. Now I take Orange Burps only as needed."<br><span style="opacity: 0.5; font-size: 12px;">— Carla</span>
+            </div>
+            <div style="text-align: center; margin-top: 16px; font-family: sans-serif; font-size: 12px; color: #ff6600; font-weight: 700; letter-spacing: 1px;">ORANGE BURPS — $19.99</div>
+          </div>
+        </div>
+        <div class="fb-cta-bar">
+          <div class="fb-headline">
+            <strong>1,200+ Five-Star Reviews</strong>
+            <span>orangeburps.com</span>
+          </div>
+          <button class="fb-cta-btn">Shop Now</button>
+        </div>
+      </div>
+
+      <div class="copy-block">
+        <label>Primary Text (paste into Ads Manager)</label>
+        <button class="copy-btn" onclick="copyText(this)">Copy</button>
+        <pre>"I still can't believe this silly named pill did it!" — Debbie
+
+"I'm a retired RN. I was on proton pump inhibitors for far too long. Now I take Orange Burps only as needed." — Carla
+
+"I did Omeprazole for 20 years. Glad this works and it's natural." — Jan
+
+1,200+ five-star reviews. $19.99. 30-day money-back guarantee.
+
+Orange Burps — a natural d-limonene supplement from orange peel extract. A simple 20-day protocol. Results may vary.</pre>
+      </div>
+
+      <div class="copy-block">
+        <label>Headline</label>
+        <button class="copy-btn" onclick="copyText(this)">Copy</button>
+        <pre>1,200+ Five-Star Reviews</pre>
+      </div>
+
+      <div class="copy-block">
+        <label>Description</label>
+        <button class="copy-btn" onclick="copyText(this)">Copy</button>
+        <pre>Natural. $19.99. Guaranteed.</pre>
+      </div>
+    </div>
+
+    <div class="creative-direction">
+      <h4>Creative Direction for Review Wall</h4>
+      <ul>
+        <li><strong>Carousel cards:</strong> Dark background (#1c1e21), white serif text (Georgia/Playfair Display), 5 orange stars above each quote. First name + "Verified Buyer" in small muted text below. Keep clean and minimal.</li>
+        <li><strong>Hook card &amp; CTA card:</strong> Orange (#ff6600) background, bold white sans-serif. These bookend the carousel.</li>
+        <li><strong>Single image (Variant B):</strong> Dark background, 3-4 short quotes stacked with orange left borders. Stars at top, logo/price at bottom. Should feel like a screenshot of a reviews page, not a designed ad.</li>
+        <li><strong>Key rule:</strong> Do NOT clean up the review language. "Silly named pill" is more believable than perfectly written copy. Keep it raw.</li>
+        <li><strong>Image size:</strong> 1080x1080 per carousel card. Same for single image.</li>
+      </ul>
+    </div>
+
+    <div class="testing-notes">
+      <h4>A/B Testing Notes</h4>
+      <ul>
+        <li>Test Carousel (Variant A) vs Single Image (Variant B) — carousel usually wins on CTR, single image can win on conversion rate</li>
+        <li>If carousel wins, test swapping individual cards to find which reviews drive the most clicks</li>
+        <li>The "Retired RN" card (Carla) will likely be the highest performer — authority + natural health angle</li>
+        <li>Consider rotating in fresh reviews every 2-3 weeks to combat ad fatigue</li>
+      </ul>
+    </div>
+    </div>
+  </div>
+
+  <!-- ==================== AUDIENCE TARGETING ==================== -->
+  <div class="audience-section">
+    <h2>Recommended Audience Targeting</h2>
+
+    <div class="audience-card">
+      <h4>Audience 1: Direct Interest (Start Here)</h4>
+      <ul>
+        <li><strong>Interests:</strong> Acid reflux, GERD, Heartburn, Gastroesophageal reflux disease</li>
+        <li><strong>Age:</strong> 30-65+</li>
+        <li><strong>Gender:</strong> All (heartburn skews slightly male but don't exclude)</li>
+        <li><strong>Exclude:</strong> People who already purchased (use pixel data)</li>
+      </ul>
+    </div>
+
+    <div class="audience-card">
+      <h4>Audience 2: Competitor Buyers</h4>
+      <ul>
+        <li><strong>Interests:</strong> Tums, Pepcid, Prilosec, Nexium, Gaviscon, Zantac</li>
+        <li><strong>Behaviors:</strong> Online shopping, Health and wellness buyers</li>
+        <li><strong>Layer with:</strong> Natural health, Organic products, Dietary supplements</li>
+      </ul>
+    </div>
+
+    <div class="audience-card">
+      <h4>Audience 3: Lookalike (Highest ROI)</h4>
+      <ul>
+        <li><strong>Source:</strong> Upload your customer purchase list or use pixel Purchase event</li>
+        <li><strong>Lookalike %:</strong> Start at 1%, expand to 3% if CPA is good</li>
+        <li><strong>This will outperform interest targeting</strong> once you have 100+ purchases tracked</li>
+      </ul>
+    </div>
+
+    <div class="audience-card">
+      <h4>Budget Recommendation</h4>
+      <ul>
+        <li><strong>Daily budget per ad set:</strong> $20-30/day minimum (Facebook needs ~50 conversions/week to optimize)</li>
+        <li><strong>Testing phase:</strong> Run all 3 concepts for 7 days, $20/day each = $420 total test</li>
+        <li><strong>Kill criteria:</strong> If CPA is 3x+ your target after 1,000 impressions, kill it</li>
+        <li><strong>Scale criteria:</strong> Winner gets 20% budget increase every 3 days</li>
+      </ul>
+    </div>
+  </div>
+
+  <!-- ==================== LAUNCH CHECKLIST ==================== -->
+  <div class="specs-bar">
+    <h2>Launch Checklist</h2>
+    <div style="padding: 8px 0;">
+      <label style="display: block; padding: 6px 0; font-size: 0.95rem;"><input type="checkbox"> Facebook Pixel installed on orangeburps.com with Purchase event firing</label>
+      <label style="display: block; padding: 6px 0; font-size: 0.95rem;"><input type="checkbox"> Product page loads fast on mobile (under 3 seconds)</label>
+      <label style="display: block; padding: 6px 0; font-size: 0.95rem;"><input type="checkbox"> Create 1080x1080 images for Concepts 3 and 5 (see creative direction above)</label>
+      <label style="display: block; padding: 6px 0; font-size: 0.95rem;"><input type="checkbox"> Set up 3 ad sets: Direct Interest, Competitor, and Lookalike audiences</label>
+      <label style="display: block; padding: 6px 0; font-size: 0.95rem;"><input type="checkbox"> Load 2 variants per concept into each ad set</label>
+      <label style="display: block; padding: 6px 0; font-size: 0.95rem;"><input type="checkbox"> Set daily budget ($20-30/ad set minimum)</label>
+      <label style="display: block; padding: 6px 0; font-size: 0.95rem;"><input type="checkbox"> Enable Advantage+ placements (let Facebook decide Feed vs Stories vs Reels)</label>
+      <label style="display: block; padding: 6px 0; font-size: 0.95rem;"><input type="checkbox"> Schedule review of results after 7 days</label>
+      <label style="display: block; padding: 6px 0; font-size: 0.95rem;"><input type="checkbox"> Add FDA disclaimer to product landing page if not already present</label>
+    </div>
+  </div>
+
+  <!-- ==================== CANVA BUILD INSTRUCTIONS ==================== -->
+  <div class="ad-section">
+    <div class="ad-section-header">
+      <span class="concept-tag" style="background: #7b2ff7;">Canva</span>
+      <h2>Canva Build Instructions</h2>
+      <p class="rationale"><strong>Start every design:</strong> Open Canva &rarr; Create a design &rarr; Custom size &rarr; <strong>1080 x 1080 px</strong>. All images below use this size unless noted.</p>
+    </div>
+
+    <!-- C3 Variant A -->
+    <div class="ad-variant">
+      <h3>Image 1 — Concept 3, Variant A: Debbie Quote</h3>
+      <div class="copy-block">
+        <label>Canva Step-by-Step</label>
+        <pre>1. Background: Solid color #1A1A1A (near-black)
+2. Add 5 star emojis OR search Canva elements for "gold star" — place in a row, centered near the top third
+   - Size each star ~60px, space evenly
+   - Color: #FFB800 (gold)
+3. Add text block — centered, below stars:
+   Font: Playfair Display (or EB Garamond), Bold
+   Size: 48px
+   Color: #FFFFFF
+   Text:
+   "I still can't believe
+   this silly named pill
+   did it!"
+4. Add second text block — centered, below quote:
+   Font: Inter (or Montserrat), Regular
+   Size: 20px
+   Color: #FFFFFF, Opacity 50%
+   Text: — Debbie, Verified Buyer
+5. Keep bottom 20% empty (Facebook overlays CTA there)</pre>
+      </div>
+      <div class="copy-block">
+        <label>Canva Magic Design Prompt (if using AI)</label>
+        <button class="copy-btn" onclick="copyText(this)">Copy</button>
+        <pre>Minimal dark testimonial card. Near-black background (#1A1A1A). Five gold stars centered at top. Large white serif quote text in the center reading: "I still can't believe this silly named pill did it!" Small muted text below: "— Debbie, Verified Buyer". Clean, no product images, no logos. Square format.</pre>
+      </div>
+    </div>
+
+    <!-- C3 Variant B -->
+    <div class="ad-variant">
+      <h3>Image 2 — Concept 3, Variant B: Worst Name / Reviews</h3>
+      <div class="copy-block">
+        <label>Canva Step-by-Step</label>
+        <pre>1. Background: Solid color #FF6600 (orange)
+2. Add text block — centered, upper area:
+   Font: Montserrat (or Inter), Regular, All Caps
+   Size: 22px, Letter spacing: 3px
+   Color: #FFFFFF, Opacity 70%
+   Text: WORST NAME IN SUPPLEMENTS
+3. Add text block — centered, middle:
+   Font: Montserrat, Bold
+   Size: 56px
+   Color: #FFFFFF
+   Text:
+   1,200+ Five-Star
+   Reviews
+4. Add a rounded rectangle shape — centered, below main text:
+   Fill: #000000, Opacity 20%
+   Corner radius: 30px
+   Size: ~340 x 50px
+5. Add text inside the rounded rectangle:
+   Font: Montserrat, Semi-Bold
+   Size: 22px
+   Color: #FFFFFF
+   Text: $19.99 • 20-Day Protocol</pre>
+      </div>
+      <div class="copy-block">
+        <label>Canva Magic Design Prompt</label>
+        <button class="copy-btn" onclick="copyText(this)">Copy</button>
+        <pre>Bold orange (#FF6600) solid background. Small white uppercase text at top: "WORST NAME IN SUPPLEMENTS". Large bold white text centered: "1,200+ Five-Star Reviews". Below that, a dark semi-transparent pill-shaped badge reading "$19.99 • 20-Day Protocol". No images, no product photos. Clean and typographic. Square format.</pre>
+      </div>
+    </div>
+
+    <!-- C5 Variant A -->
+    <div class="ad-variant">
+      <h3>Image 3 — Concept 5, Variant A: Before/After Nightstand</h3>
+      <div class="copy-block">
+        <label>Option A — Real Photo (Best Performance)</label>
+        <pre>SHOOT THIS WITH YOUR PHONE:
+1. Set up two nightstand scenes side by side (or photograph separately and combine in Canva)
+
+LEFT SIDE ("Before"):
+- Cluttered nightstand: Tums bottle, Pepcid box, Gaviscon, a water glass, extra pillow stacked
+- Messy, lived-in feel
+- Warm but slightly dim lighting
+
+RIGHT SIDE ("After"):
+- Clean nightstand: Just a book, maybe a small plant
+- Clean, bright, minimal
+- Same lighting but feels open and calm
+
+IN CANVA:
+1. Upload both photos
+2. Place side by side, each filling half the canvas
+3. Add a thin vertical line (#FF6600, 2px) dividing them
+4. Top left corner: small text "BEFORE" — Font: Montserrat, 14px, All Caps, #999999
+5. Top right corner: small text "AFTER" — same styling
+6. Bottom right: small text "20 DAYS WITH ORANGE BURPS" — 14px, #FF6600, Bold</pre>
+      </div>
+      <div class="copy-block">
+        <label>Option B — Graphic Version (No Photography Needed)</label>
+        <pre>1. Split background: Left half #E8D5C4 (warm beige), Right half #FAF6F1 (light cream)
+   - Use two rectangles, each 540x1080px
+2. Top left: Text "BEFORE" — Montserrat, 14px, All Caps, Letter spacing 2px, #999999
+3. Top right: Text "AFTER" — same styling
+4. Left side — search Canva elements for:
+   - "pill bottle" or "medicine bottle" icon (add 3, scattered)
+   - "water glass" icon
+   - Style: flat/line icons, color #888888
+5. Below icons on left, add text list:
+   Font: Inter, 16px, Color #666666
+   Text:
+   Tums
+   Pepcid
+   Gaviscon
+   Water (just in case)
+   Extra pillows
+6. Right side — search Canva for:
+   - "book" icon, centered
+   - Style: same flat/line icon
+7. Below book icon:
+   Font: Inter, 16px, Color #666666
+   Text:
+   A good book.
+   That's it.
+8. Bottom right corner:
+   Font: Montserrat, Bold, 13px, Color #FF6600
+   Text: 20 DAYS WITH ORANGE BURPS</pre>
+      </div>
+      <div class="copy-block">
+        <label>Canva Magic Design Prompt</label>
+        <button class="copy-btn" onclick="copyText(this)">Copy</button>
+        <pre>Clean split-screen comparison. Left half warm beige background labeled "BEFORE" with scattered medicine bottle icons and text listing "Tums, Pepcid, Gaviscon, Water, Extra pillows". Right half light cream background labeled "AFTER" with a single book icon and text "A good book. That's it." Small orange text in bottom right: "20 DAYS WITH ORANGE BURPS". Minimal flat design, no photos. Square format.</pre>
+      </div>
+    </div>
+
+    <!-- C5 Variant B -->
+    <div class="ad-variant">
+      <h3>Image 4 — Concept 5, Variant B: "20 Days" Typography</h3>
+      <div class="copy-block">
+        <label>Canva Step-by-Step</label>
+        <pre>1. Background: Solid #FFFFFF (white)
+2. Add text block — centered vertically:
+   Font: Montserrat (or Inter), Black (900 weight)
+   Size: 80px
+   Color: #1C1E21
+   Line height: 1.1
+   Text:
+   20 days.
+   That's all
+   it took.
+3. Add text block — centered, below main text:
+   Font: Montserrat, Bold
+   Size: 18px, Letter spacing: 3px
+   Color: #FF6600
+   Text: ORANGE BURPS
+4. That's it. Keep it clean. No other elements.</pre>
+      </div>
+      <div class="copy-block">
+        <label>Canva Magic Design Prompt</label>
+        <button class="copy-btn" onclick="copyText(this)">Copy</button>
+        <pre>Pure white background. Large bold black sans-serif text centered: "20 days. That's all it took." in three lines. Small orange text below in all caps: "ORANGE BURPS". Nothing else — no images, no icons, no borders. Ultra minimal typography poster. Square format.</pre>
+      </div>
+    </div>
+
+    <!-- C1 Carousel Cards -->
+    <div class="ad-variant">
+      <h3>Images 5-11 — Concept 1: Review Wall Carousel (7 Cards)</h3>
+      <div class="copy-block">
+        <label>Card 1 — Hook (Orange)</label>
+        <pre>1. Background: Solid #FF6600
+2. Large text — centered:
+   Font: Montserrat, Black
+   Size: 72px
+   Color: #FFFFFF
+   Text: 1,200+
+3. Below — Font: Montserrat, Regular, 28px, White
+   Text: Five-Star Reviews
+4. Below — 5 gold star elements in a row (~40px each)
+   Color: #FFB800
+5. Bottom — Font: Montserrat, Regular, 20px, White, Opacity 80%
+   Text: Swipe to read them →</pre>
+      </div>
+      <div class="copy-block">
+        <label>Cards 2-6 — Review Quotes (Dark) — REPEAT THIS TEMPLATE 5 TIMES</label>
+        <pre>1. Background: Solid #1C1E21 (near-black)
+2. Five gold stars — centered near top
+   Size: ~36px each, Color: #FFB800
+3. Quote text — centered:
+   Font: Playfair Display (or EB Garamond), Regular
+   Size: 32px
+   Color: #FFFFFF
+   Line height: 1.4
+
+CARD 2 TEXT: "I still can't believe this silly named over the counter natural pill did it!"
+CARD 2 ATTRIBUTION: — Debbie, Verified Buyer
+
+CARD 3 TEXT: "Not crazy about the name, but love love love the product! It actually works. No hype, just facts."
+CARD 3 ATTRIBUTION: — Cinda, Verified Buyer
+
+CARD 4 TEXT: "Five weeks without omeprazole. I sleep through the night with zero reflux."
+CARD 4 ATTRIBUTION: — Peter, Verified Buyer
+
+CARD 5 TEXT: "I'm a retired RN who was on proton pump inhibitors for far too long. Now I take Orange Burps only as needed."
+CARD 5 ATTRIBUTION: — Carla, Retired RN
+
+CARD 6 TEXT: "I did Omeprazole for 20 years. Take Orange Burps for 20 days — you'll get relief. Glad it's natural."
+CARD 6 ATTRIBUTION: — Jan, Verified Buyer
+
+4. Attribution text — centered below quote:
+   Font: Inter, Regular, 18px, White, Opacity 50%</pre>
+      </div>
+      <div class="copy-block">
+        <label>Card 7 — CTA (Orange)</label>
+        <pre>1. Background: Solid #FF6600
+2. Top text — centered:
+   Font: Montserrat, Bold, 36px, White
+   Text: Try It Risk-Free
+3. Large price — centered:
+   Font: Montserrat, Black, 64px, White
+   Text: $19.99
+4. Below — Font: Montserrat, Regular, 24px, White, Opacity 90%
+   Text: 30-Day Money-Back Guarantee
+5. Add rounded rectangle — centered:
+   Fill: #FFFFFF
+   Corner radius: 10px
+   Size: ~240 x 56px
+6. Text inside rectangle:
+   Font: Montserrat, Bold, 24px, Color #FF6600
+   Text: Shop Now</pre>
+      </div>
+      <div class="copy-block">
+        <label>Canva Magic Design Prompt (for one review card — repeat with different quotes)</label>
+        <button class="copy-btn" onclick="copyText(this)">Copy</button>
+        <pre>Dark testimonial card with near-black background (#1C1E21). Five gold stars at top center. Large white serif quote text centered: "I still can't believe this silly named over the counter natural pill did it!" Small muted white text below: "— Debbie, Verified Buyer". No product images, no logos, no borders. Square format 1080x1080.</pre>
+      </div>
+    </div>
+
+    <!-- C1 Single Image -->
+    <div class="ad-variant">
+      <h3>Image 12 — Concept 1, Variant B: Quote Collage</h3>
+      <div class="copy-block">
+        <label>Canva Step-by-Step</label>
+        <pre>1. Background: Solid #1C1E21 (near-black)
+2. Top center — 5 gold stars in a row (~36px each)
+3. Below stars — centered text:
+   Font: Inter, Regular, 18px, White, Opacity 50%
+   Text: 1,200+ FIVE-STAR REVIEWS
+4. Add 3 quote blocks, stacked vertically:
+   Each has:
+   - A vertical line element: 3px wide, Color #FF6600, ~60px tall, left-aligned
+   - Quote text to the right of the line:
+     Font: Playfair Display, 22px, White
+   - Attribution below quote:
+     Font: Inter, 16px, White, Opacity 50%
+
+   QUOTE 1: "This silly named natural pill did it!"
+            — Debbie
+
+   QUOTE 2: "Five weeks without omeprazole. Zero reflux."
+            — Peter
+
+   QUOTE 3: "I'm a retired RN. Now I take Orange Burps only as needed."
+            — Carla
+
+5. Bottom center:
+   Font: Montserrat, Bold, 16px, Color #FF6600, Letter spacing 1px
+   Text: ORANGE BURPS — $19.99</pre>
+      </div>
+      <div class="copy-block">
+        <label>Canva Magic Design Prompt</label>
+        <button class="copy-btn" onclick="copyText(this)">Copy</button>
+        <pre>Dark review collage on near-black background. Five gold stars and "1,200+ FIVE-STAR REVIEWS" at top. Three customer quotes stacked vertically, each with an orange left border line: (1) "This silly named natural pill did it!" — Debbie (2) "Five weeks without omeprazole. Zero reflux." — Peter (3) "I'm a retired RN. Now I take Orange Burps only as needed." — Carla. Small orange text at bottom: "ORANGE BURPS — $19.99". No photos, no product images. Square format.</pre>
+      </div>
+    </div>
+
+    <!-- Quick Reference -->
+    <div class="creative-direction">
+      <h4>Canva Quick Reference — Colors &amp; Fonts</h4>
+      <ul>
+        <li><strong>Orange:</strong> #FF6600 — use for backgrounds, accents, CTAs</li>
+        <li><strong>Near-black:</strong> #1C1E21 — use for dark card backgrounds</li>
+        <li><strong>Gold stars:</strong> #FFB800</li>
+        <li><strong>Muted text:</strong> #FFFFFF at 50% opacity</li>
+        <li><strong>Serif font (quotes):</strong> Playfair Display or EB Garamond — makes reviews feel personal and real</li>
+        <li><strong>Sans-serif font (everything else):</strong> Montserrat or Inter — clean and modern</li>
+        <li><strong>Export:</strong> Download as PNG, highest quality. Name files by concept (e.g., C3-VA-debbie-quote.png)</li>
+      </ul>
+    </div>
+
+    <div class="testing-notes">
+      <h4>Total Images to Create</h4>
+      <ul>
+        <li><strong>Concept 3:</strong> 2 images (Variant A + Variant B)</li>
+        <li><strong>Concept 5:</strong> 2 images (Variant A + Variant B)</li>
+        <li><strong>Concept 1 Carousel:</strong> 7 images (Hook + 5 reviews + CTA)</li>
+        <li><strong>Concept 1 Single:</strong> 1 image (Quote collage)</li>
+        <li><strong>Total: 12 images</strong> — all 1080x1080px, export as PNG</li>
+      </ul>
+    </div>
+  </div>
+
+  <!-- ==================== FB COMPLIANCE NOTES ==================== -->
+  <div class="specs-bar" style="border-left: 4px solid #e74c3c;">
+    <h2 style="color: #e74c3c;">Facebook Ad Policy Compliance Notes</h2>
+    <div style="padding: 8px 0; font-size: 0.9rem; line-height: 1.6;">
+      <p><strong>All copy in this pack has been reviewed for FB ad policy compliance:</strong></p>
+      <ul style="padding-left: 20px; margin-top: 8px;">
+        <li><strong>No fabricated testimonials</strong> — Every customer quote is pulled verbatim from real, verified reviews in the Orange Burps review export.</li>
+        <li><strong>No unsubstantiated health claims</strong> — Removed "90% of users get relief for 6+ months" (would require clinical substantiation). Replaced with review counts and "results may vary."</li>
+        <li><strong>No implied cure or treatment</strong> — Softened "Take for 20 days. That's it." to "A simple 20-day protocol." Supplement ads cannot imply a product cures, treats, or prevents a disease.</li>
+        <li><strong>No medication-stopping directives</strong> — Replaced "Ditch the Daily Antacids" and "Ditch the Antacid Aisle" with neutral headlines. FB prohibits ads that tell users to stop prescribed medications.</li>
+        <li><strong>No personal health assertions</strong> — Removed "just like you" and changed "your nightstand" to third-person framing. FB's personal attributes policy prohibits implying the viewer has a specific health condition.</li>
+        <li><strong>"Results may vary"</strong> — Added to all variants with testimonial-based claims.</li>
+      </ul>
+      <p style="margin-top: 12px;"><strong>Required on your landing page (orangeburps.com):</strong></p>
+      <p style="background: #fff3f3; padding: 12px; border-radius: 6px; margin-top: 8px; font-size: 0.85rem;">*These statements have not been evaluated by the Food and Drug Administration. This product is not intended to diagnose, treat, cure, or prevent any disease.</p>
+    </div>
+  </div>
+
+</div>
+
+<script>
+function copyText(btn) {
+  const pre = btn.parentElement.querySelector('pre');
+  navigator.clipboard.writeText(pre.textContent).then(() => {
+    btn.textContent = 'Copied!';
+    setTimeout(() => btn.textContent = 'Copy', 2000);
+  });
+}
+</script>
+
+</body>
+</html>
